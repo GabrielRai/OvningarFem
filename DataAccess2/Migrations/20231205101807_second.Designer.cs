@@ -4,6 +4,7 @@ using DataAccess2;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231205101807_second")]
+    partial class second
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,23 +25,6 @@ namespace DataAccess2.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("DataAccess2.Entities2.Author", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Authors");
-                });
-
             modelBuilder.Entity("DataAccess2.Entities2.BlogEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -46,9 +32,6 @@ namespace DataAccess2.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("AuthorId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Content")
                         .IsRequired()
@@ -59,8 +42,6 @@ namespace DataAccess2.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
 
                     b.ToTable("Blogs");
                 });
@@ -84,14 +65,7 @@ namespace DataAccess2.Migrations
 
                     b.HasIndex("BlogEntityId");
 
-                    b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("DataAccess2.Entities2.BlogEntity", b =>
-                {
-                    b.HasOne("DataAccess2.Entities2.Author", null)
-                        .WithMany("BlogPosts")
-                        .HasForeignKey("AuthorId");
+                    b.ToTable("Comment");
                 });
 
             modelBuilder.Entity("DataAccess2.Entities2.Comment", b =>
@@ -99,11 +73,6 @@ namespace DataAccess2.Migrations
                     b.HasOne("DataAccess2.Entities2.BlogEntity", null)
                         .WithMany("Comments")
                         .HasForeignKey("BlogEntityId");
-                });
-
-            modelBuilder.Entity("DataAccess2.Entities2.Author", b =>
-                {
-                    b.Navigation("BlogPosts");
                 });
 
             modelBuilder.Entity("DataAccess2.Entities2.BlogEntity", b =>

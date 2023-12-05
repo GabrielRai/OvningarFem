@@ -6,6 +6,8 @@ namespace DataAccess2;
 public class AppDbContext : DbContext
 {
     public DbSet<BlogEntity> Blogs { get; set; } = null!;
+    public DbSet<Comment> Comments { get; set; } = null!;
+    public DbSet<Author> Authors { get; set; } = null!;
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

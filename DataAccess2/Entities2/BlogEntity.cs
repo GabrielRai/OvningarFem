@@ -12,4 +12,6 @@ public class BlogEntity
 
     [Required]
     public string Content { get; set; } = string.Empty;
+
+    public List<Comment> Comments { get; set; } = new();
 }
